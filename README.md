@@ -1,21 +1,21 @@
-# Hiring Search Engine Platform 🚀
+# Hiring Search Engine Platform
 
 A modern, highly responsive Candidate Search & Assessment Platform built with **Next.js**, **React**, **Tailwind CSS**, and **Lucide React Icons**. Designed for recruiters and hiring managers to effortlessly discover, filter, assess, and manage candidate pipelines with rich interactivity and dark mode aesthetic.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔍 **Real-Time Candidate Search & Filtering**: Search by name, title, skill tag, experience level, location, or status.
-- 🎛️ **Advanced Filters & Sorting**: Refine candidate lists with multi-select tags, dynamic rating filters, and custom sorting.
-- 📋 **Interactive Candidate Profile Modal**: Comprehensive view with experience history, skills assessment, portfolio links, and quick hiring stage transitions.
-- 📊 **Recruitment Analytics & Funnel Breakdown**: Visual stats showing pipeline breakdown by interview stage and skill distribution.
-- 🌗 **Dark Theme UI**: Visual excellence with modern glassmorphism, sleek gradients, and smooth micro-animations.
-- 📱 **Fully Responsive Layout**: Mobile-first design providing seamless access across screens of all sizes.
+- **Real-Time Candidate Search & Filtering**: Search by name, title, skill tag, experience level, location, or status.
+- **Advanced Filters & Sorting**: Refine candidate lists with multi-select tags, dynamic rating filters, and custom sorting.
+- **Interactive Candidate Profile Modal**: Comprehensive view with experience history, skills assessment, portfolio links, and quick hiring stage transitions.
+- **Recruitment Analytics & Funnel Breakdown**: Visual stats showing pipeline breakdown by interview stage and skill distribution.
+- **Dark Theme UI**: Visual excellence with modern glassmorphism, sleek gradients, and smooth micro-animations.
+- **Fully Responsive Layout**: Mobile-first design providing seamless access across screens of all sizes.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) (App/Pages directory support)
 - **UI Library**: [React 18](https://reactjs.org/)
@@ -25,7 +25,7 @@ A modern, highly responsive Candidate Search & Assessment Platform built with **
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -54,7 +54,7 @@ Ensure you have Node.js (v18.0.0 or higher) and `npm` installed.
 
 ---
 
-## 📜 Available Scripts
+## Available Scripts
 
 In the project directory, you can run:
 
@@ -65,7 +65,7 @@ In the project directory, you can run:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 next-hiring/
@@ -83,6 +83,7 @@ next-hiring/
 
 ---
 
-## 📝 License
+## License
 
 Distributed under the MIT License. See `LICENSE` for details.
+
