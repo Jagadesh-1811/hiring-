@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const SidebarFilters = ({
   onFilterChange,
@@ -43,6 +43,47 @@ export const SidebarFilters = ({
   const [mobility, setMobility] = useState([]);
   const [culturePreferences, setCulturePreferences] = useState([]);
   const [cgpaCutoff, setCgpaCutoff] = useState('');
+
+  useEffect(() => {
+    if (onFilterChange) {
+      onFilterChange({
+        role: selectedRole,
+        skills: selectedSkills,
+        verifiedSkillsOnly,
+        experienceLevel,
+        location: locationInput,
+        workMode,
+        noticePeriod,
+        salary,
+        techs: selectedTechs,
+        availability,
+        companyTier,
+        education,
+        minAiScore,
+        rankingPercentile,
+        projectsCompleted,
+        employmentType
+      });
+    }
+  }, [
+    selectedRole,
+    selectedSkills,
+    verifiedSkillsOnly,
+    experienceLevel,
+    locationInput,
+    workMode,
+    noticePeriod,
+    salary,
+    selectedTechs,
+    availability,
+    companyTier,
+    education,
+    minAiScore,
+    rankingPercentile,
+    projectsCompleted,
+    employmentType,
+    onFilterChange
+  ]);
 
   const toggleSection = (key) => {
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));

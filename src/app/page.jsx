@@ -13,6 +13,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('All Domains');
   const [activeWorkspaceTab, setActiveWorkspaceTab] = useState('all');
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [activeFilters, setActiveFilters] = useState({});
 
   const categories = [
     'All Domains',
@@ -66,12 +67,111 @@ export default function Home() {
         const matchesLocation = c.currentLocation.toLowerCase().includes(q);
         const matchesBio = c.candidateBio.toLowerCase().includes(q);
 
-        return matchesName || matchesRole || matchesSkills || matchesLocation || matchesBio;
+        if (!(matchesName || matchesRole || matchesSkills || matchesLocation || matchesBio)) {
+          return false;
+        }
+      }
+
+      // Apply Sidebar Filters
+      if (activeFilters.role) {
+        const roleQ = activeFilters.role.toLowerCase();
+        const matchesRole = c.currentRole.toLowerCase().includes(roleQ) || 
+                            c.preferredRoles.some(r => r.toLowerCase().includes(roleQ));
+        if (!matchesRole) return false;
+      }
+
+      if (activeFilters.skills && activeFilters.skills.length > 0) {
+        const hasSkills = activeFilters.skills.every(skill => 
+          c.primaryTechSkills.some(s => s.toLowerCase() === skill.toLowerCase()) ||
+          c.additionalTechSkills.some(s => s.toLowerCase() === skill.toLowerCase())
+        );
+        if (!hasSkills) return false;
+      }
+
+      if (activeFilters.experienceLevel) {
+        const expVal = parseFloat(c.totalExperience);
+        if (activeFilters.experienceLevel === '0-2 Yrs' && expVal > 2) return false;
+        if (activeFilters.experienceLevel === '3-5 Yrs' && (expVal < 3 || expVal > 5)) return false;
+        if (activeFilters.experienceLevel === '6+ Yrs' && expVal < 6) return false;
+      }
+
+      if (activeFilters.location && activeFilters.location.trim() !== '') {
+        const locQ = activeFilters.location.toLowerCase();
+        const matchesLocation = c.currentLocation.toLowerCase().includes(locQ) || 
+                                (c.preferredLocation && c.preferredLocation.toLowerCase().includes(locQ));
+        if (!matchesLocation) return false;
+      }
+
+      if (activeFilters.workMode) {
+        const mode = activeFilters.workMode.toLowerCase();
+        if (mode === 'remote only' && !c.currentLocation.toLowerCase().includes('remote')) {
+          if (c.preferredLocation && !c.preferredLocation.toLowerCase().includes('remote')) {
+            return false;
+          }
+        }
+        if (mode === 'hybrid' && !c.currentLocation.toLowerCase().includes('hybrid') && (!c.preferredLocation || !c.preferredLocation.toLowerCase().includes('hybrid'))) {
+          return false;
+        }
+      }
+
+      if (activeFilters.noticePeriod) {
+        const notice = activeFilters.noticePeriod.toLowerCase();
+        if (notice === 'immediate' && !c.noticePeriod.toLowerCase().includes('immediate')) return false;
+        if (notice === '≤15 days' && !c.noticePeriod.toLowerCase().includes('15 days') && !c.noticePeriod.toLowerCase().includes('immediate')) return false;
+        if (notice === '≤30 days' && c.noticePeriod.toLowerCase().includes('60 days') || c.noticePeriod.toLowerCase().includes('90 days')) return false;
+      }
+
+      if (activeFilters.salary) {
+        // Simple salary filtering by parsing INR text
+        const currentSalaryNumeric = parseInt(c.currentSalary.replace(/[^0-9]/g, '')) / 100000; // approximation in LPA
+        if (activeFilters.salary === '< 20 LPA' && currentSalaryNumeric >= 20) return false;
+        if (activeFilters.salary === '20-35 LPA' && (currentSalaryNumeric < 20 || currentSalaryNumeric > 35)) return false;
+        if (activeFilters.salary === '35+ LPA' && currentSalaryNumeric < 35) return false;
+      }
+
+      if (activeFilters.techs && activeFilters.techs.length > 0) {
+        const hasTechs = activeFilters.techs.every(tech =>
+          c.primaryTechSkills.some(s => s.toLowerCase() === tech.toLowerCase()) ||
+          c.additionalTechSkills.some(s => s.toLowerCase() === tech.toLowerCase())
+        );
+        if (!hasTechs) return false;
+      }
+
+      if (activeFilters.availability) {
+        if (activeFilters.availability === 'Open to Work' && !c.openToWork) return false;
+      }
+
+      if (activeFilters.companyTier) {
+        const tier = activeFilters.companyTier.toLowerCase();
+        if (tier.includes('maang') && !c.companyExperienceYears.toLowerCase().includes('maang') && !c.companyExperienceYears.toLowerCase().includes('tech corp')) {
+          return false;
+        }
+      }
+
+      if (activeFilters.minAiScore) {
+        const minScore = activeFilters.minAiScore.includes('90+') ? 90 : 80;
+        if (activeFilters.minAiScore !== 'Any Score' && c.aiEvaluationScore < minScore) return false;
+      }
+
+      if (activeFilters.rankingPercentile) {
+        const pct = activeFilters.rankingPercentile;
+        if (pct === 'Top 5%' && !c.challengeRank.includes('Top 1%') && !c.challengeRank.includes('Top 5%')) return false;
+        if (pct === 'Top 10%' && !c.challengeRank.includes('Top 1%') && !c.challengeRank.includes('Top 5%') && !c.challengeRank.includes('Top 10%')) return false;
+      }
+
+      if (activeFilters.projectsCompleted) {
+        const count = activeFilters.projectsCompleted.includes('5+') ? 5 : activeFilters.projectsCompleted.includes('3+') ? 3 : 1;
+        if (c.projectsCompleted && c.projectsCompleted < count) return false;
+      }
+
+      if (activeFilters.employmentType) {
+        const et = activeFilters.employmentType.toLowerCase();
+        if (!c.employmentType.toLowerCase().includes(et)) return false;
       }
 
       return true;
     });
-  }, [candidates, searchQuery, selectedCategory, activeWorkspaceTab]);
+  }, [candidates, searchQuery, selectedCategory, activeWorkspaceTab, activeFilters]);
 
   const savedCount = candidates.filter((c) => c.isSaved).length;
   const shortlistedCount = candidates.filter((c) => c.isShortlisted).length;
@@ -101,6 +201,7 @@ export default function Home() {
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
               categories={categories}
+              onFilterChange={setActiveFilters}
             />
           </div>
 
