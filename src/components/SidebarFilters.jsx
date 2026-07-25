@@ -2,8 +2,14 @@
 
 import React, { useState } from 'react';
 
-export const SidebarFilters = ({ onFilterChange }) => {
+export const SidebarFilters = ({
+  onFilterChange,
+  selectedCategory = 'All Domains',
+  setSelectedCategory,
+  categories = []
+}) => {
   const [openSections, setOpenSections] = useState({
+    domain: true,
     core: true,
     tech: false,
     recruiter: false,
@@ -91,6 +97,37 @@ export const SidebarFilters = ({ onFilterChange }) => {
       </div>
 
       <div className="space-y-3">
+        {/* DOMAIN FILTER SECTION */}
+        <div className="border border-violet-100 rounded-xl overflow-hidden bg-violet-50/30">
+          <button
+            onClick={() => toggleSection('domain')}
+            className="w-full px-3.5 py-2.5 font-bold text-xs text-gray-900 flex items-center justify-between text-left hover:bg-violet-100/50 transition-colors"
+          >
+            <span>DOMAIN / SPECIALIZATION</span>
+            <span className="text-violet-600 text-xs font-mono">{openSections.domain ? '−' : '+'}</span>
+          </button>
+          {openSections.domain && (
+            <div className="p-3 bg-white border-t border-violet-100 text-xs">
+              <label className="block text-[10px] font-bold uppercase text-gray-400 mb-1.5">Selected Domain</label>
+              <div className="flex flex-col gap-1.5">
+                {categories && categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setSelectedCategory && setSelectedCategory(cat)}
+                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-bold transition-all border ${
+                      selectedCategory === cat
+                        ? 'bg-violet-100 border-violet-300 text-violet-900 shadow-sm'
+                        : 'bg-slate-50 border-gray-100 text-gray-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* SECTION 1: CORE SPECS */}
         <div className="border border-gray-100 rounded-xl overflow-hidden bg-slate-50/50">
           <button

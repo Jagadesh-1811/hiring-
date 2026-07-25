@@ -34,15 +34,6 @@ export const Header = ({
               <p className="text-[11px] text-gray-500 font-medium">Talent Marketplace & Candidate Intelligence Engine</p>
             </div>
           </div>
-
-          {/* Domain Dropdown Selector (Replaces raw chip list) */}
-          <div className="hidden sm:block">
-            <DropdownMenu5
-              selectedCategory={selectedCategory}
-              setSelectedCategory={setSelectedCategory}
-              categories={categories}
-            />
-          </div>
         </div>
 
         {/* Center: Search Bar */}

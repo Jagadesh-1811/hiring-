@@ -97,7 +97,11 @@ export default function Home() {
           
           {/* Leftmost Sticky Sidebar */}
           <div className="w-full lg:w-72 shrink-0 sticky top-20">
-            <SidebarFilters />
+            <SidebarFilters
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              categories={categories}
+            />
           </div>
 
           {/* Right Main Content */}
