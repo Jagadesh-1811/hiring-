@@ -96,12 +96,6 @@ export const CandidateModal = ({
         <aside className="w-full md:w-72 bg-slate-50/70 border-r border-violet-100 flex flex-col shrink-0 h-full overflow-hidden">
           {/* Header Card Widget */}
           <div className="p-5 border-b border-violet-100 bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-950 text-white relative shrink-0">
-            <button
-              onClick={onClose}
-              className="absolute top-3.5 right-3.5 text-xs font-bold px-2 py-0.5 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-all"
-            >
-              Close
-            </button>
 
             <div className="flex items-center gap-3">
               <img
