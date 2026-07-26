@@ -15,26 +15,26 @@ export const CandidateCard = ({
     >
       {/* Top Section */}
       <div>
-        <div className="flex items-start justify-between gap-4 mb-4">
-          <div className="flex items-center gap-3">
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="flex items-start gap-3 min-w-0">
             <img
               src={candidate.avatar}
               alt={candidate.name}
-              className="w-14 h-14 rounded-2xl object-cover border-2 border-violet-100 shadow-sm group-hover:scale-105 transition-transform"
+              className="w-14 h-14 rounded-2xl object-cover border-2 border-violet-100 shadow-sm group-hover:scale-105 transition-transform shrink-0"
             />
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-gray-900 text-base group-hover:text-violet-700 transition-colors">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <h3 className="font-extrabold text-gray-900 text-base group-hover:text-violet-700 transition-colors leading-tight break-words">
                   {candidate.name}
                 </h3>
                 {candidate.openToWork && (
-                  <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2 py-0.5 rounded-md">
+                  <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-extrabold px-2 py-0.5 rounded-md shrink-0">
                     Open to Work
                   </span>
                 )}
               </div>
-              <p className="text-xs font-bold text-violet-600 mt-0.5">{candidate.currentRole}</p>
-              <div className="flex items-center gap-2 mt-1 text-xs text-gray-500 font-medium">
+              <p className="text-xs font-bold text-violet-600 mt-0.5 truncate">{candidate.currentRole}</p>
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-1 text-xs text-gray-500 font-medium">
                 <span>{candidate.currentLocation}</span>
                 <span>•</span>
                 <span>{candidate.totalExperience}</span>
@@ -43,7 +43,7 @@ export const CandidateCard = ({
           </div>
 
           {/* Quick Action Buttons */}
-          <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center gap-1.5 shrink-0" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={(e) => onToggleSave(candidate.id, e)}
               className={`p-2 rounded-xl text-xs font-bold transition-all ${
