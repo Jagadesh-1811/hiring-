@@ -34,7 +34,8 @@ export const CandidateModal = ({
     { id: 'matrix', label: 'Performance Matrix' },
     { id: 'ai-report', label: 'AI Evaluation Report' },
     { id: 'coding', label: 'Coding Activity' },
-    { id: 'insights', label: 'Recruiter Insights' }
+    { id: 'insights', label: 'Recruiter Insights' },
+    { id: 'intelligence', label: 'AI Intelligence Cards' }
   ];
 
   // Smooth scroll to section within the container
@@ -186,7 +187,7 @@ export const CandidateModal = ({
             <div id="sec-header" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Candidate Header Specs</h4>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                 <div className="p-3.5 rounded-xl bg-violet-50/60 border border-violet-100">
                   <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">FULL NAME</span>
                   <span className="font-extrabold text-gray-900 text-xs">{candidate.name}</span>
@@ -196,6 +197,10 @@ export const CandidateModal = ({
                   <span className="font-extrabold text-violet-800 text-xs">{candidate.currentRole}</span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-violet-50/60 border border-violet-100">
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">TOTAL EXPERIENCE</span>
+                  <span className="font-extrabold text-indigo-900 text-xs">{candidate.totalExperience}</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-violet-50/60 border border-violet-100">
                   <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">HIRING STATUS</span>
                   <span className="font-extrabold text-emerald-800 text-xs">{candidate.currentStatus}</span>
                 </div>
@@ -203,9 +208,13 @@ export const CandidateModal = ({
                   <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">NOTICE PERIOD</span>
                   <span className="font-extrabold text-indigo-800 text-xs">{candidate.noticePeriod}</span>
                 </div>
+                <div className="p-3.5 rounded-xl bg-violet-50/60 border border-violet-100">
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">EMPLOYMENT TYPE</span>
+                  <span className="font-extrabold text-gray-900 text-xs">{candidate.employmentType}</span>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">CURRENT SALARY</span>
                   <span className="font-bold text-gray-900">{candidate.currentSalary}</span>
@@ -215,16 +224,43 @@ export const CandidateModal = ({
                   <span className="font-bold text-violet-700">{candidate.expectedSalary}</span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">EMPLOYMENT TYPE</span>
-                  <span className="font-bold text-gray-900">{candidate.employmentType}</span>
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">ANNUAL BONUS / VARIABLE</span>
+                  <span className="font-bold text-gray-900">{candidate.variableBonus || 'N/A'}</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">EXPERIENCE BANDING</span>
+                  <span className="font-bold text-violet-850">{candidate.experienceBanding || 'N/A'}</span>
                 </div>
               </div>
+
+              {candidate.companyExperienceYears && (
+                <div className="p-3.5 rounded-xl bg-violet-50/40 border border-violet-100/80 text-xs">
+                  <span className="text-slate-400 font-bold block mb-1 text-[10px] uppercase">Company Experience Breakdown</span>
+                  <span className="font-extrabold text-gray-900">{candidate.companyExperienceYears}</span>
+                </div>
+              )}
+
+              {candidate.preferredRoles && candidate.preferredRoles.length > 0 && (
+                <div className="p-3.5 rounded-xl bg-violet-50/40 border border-violet-100/80 text-xs">
+                  <span className="text-slate-400 font-bold block mb-2 text-[10px] uppercase">Preferred / Target Roles</span>
+                  <div className="flex flex-wrap gap-2">
+                    {candidate.preferredRoles.map((role, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2.5 py-1 bg-white text-violet-850 rounded-lg text-xs font-semibold border border-violet-200 shadow-xs"
+                      >
+                        {role}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* SECTION 2: CONTACT INFORMATION */}
             <div id="sec-contact" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Contact Information & Profiles</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">EMAIL ADDRESS</span>
                   <span className="font-semibold text-gray-900">{candidate.email}</span>
@@ -234,8 +270,12 @@ export const CandidateModal = ({
                   <span className="font-semibold text-gray-900">{candidate.contact}</span>
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">LOCATION</span>
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">CURRENT LOCATION</span>
                   <span className="font-semibold text-gray-900">{candidate.currentLocation}</span>
+                </div>
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-slate-400 font-bold block mb-0.5 text-[10px]">PREFERRED LOCATION</span>
+                  <span className="font-semibold text-gray-900">{candidate.preferredLocation || 'N/A'}</span>
                 </div>
               </div>
 
@@ -277,15 +317,71 @@ export const CandidateModal = ({
             <div id="sec-summary" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Professional Summary & Bio</h4>
               <p className="text-xs text-gray-700 leading-relaxed font-medium">{candidate.candidateBio}</p>
+              
+              {candidate.userSummary && (
+                <div className="p-3.5 rounded-xl bg-violet-50 text-xs text-violet-900 border border-violet-200 font-medium">
+                  <strong>User Summary:</strong> {candidate.userSummary}
+                </div>
+              )}
+
               <div className="p-3.5 rounded-xl bg-violet-50 text-xs text-violet-900 border border-violet-200 font-medium">
                 <strong>Executive Summary:</strong> {candidate.executiveSummary}
               </div>
+
+              {candidate.culturePreferences && candidate.culturePreferences.length > 0 && (
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
+                  <span className="font-bold uppercase text-[10px] text-slate-500 block">Culture & Workplace Preferences</span>
+                  <div className="flex flex-wrap gap-2">
+                    {candidate.culturePreferences.map((pref, idx) => (
+                      <span key={idx} className="px-2.5 py-1 bg-white text-gray-800 rounded-lg text-xs font-semibold border border-slate-200 shadow-xs">
+                        {pref}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* SECTION 4: TECHNICAL SKILLS */}
             <div id="sec-skills" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Technical Skills & Competencies</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              
+              {/* Primary & Additional Tech Skills */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {candidate.primaryTechSkills && (
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <span className="font-bold uppercase text-[10px] text-slate-500 block mb-2">Primary Tech Skills</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {candidate.primaryTechSkills.map((s, idx) => (
+                        <span key={idx} className="px-2.5 py-1 bg-violet-100 text-violet-850 rounded-lg font-bold text-[11px] border border-violet-200 shadow-xs">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {candidate.additionalTechSkills && (
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <span className="font-bold uppercase text-[10px] text-slate-500 block mb-2">Additional Tech Skills</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {candidate.additionalTechSkills.map((s, idx) => (
+                        <span key={idx} className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg font-semibold text-[11px] border border-slate-200 shadow-xs">{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {candidate.preferredTechStack && (
+                <div className="p-4 rounded-xl bg-violet-50/50 border border-violet-150 text-xs">
+                  <span className="font-bold uppercase text-[10px] text-violet-700 block mb-2">Preferred / Target Tech Stack</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {candidate.preferredTechStack.map((s, idx) => (
+                      <span key={idx} className="px-2.5 py-1 bg-white text-violet-900 rounded-lg font-bold text-[11px] border border-violet-200 shadow-xs">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
                 {candidate.techStack.map((tech) => (
                   <div key={tech.name} className="p-3.5 rounded-xl bg-violet-50/50 border border-violet-100 space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
@@ -345,12 +441,10 @@ export const CandidateModal = ({
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* SECTION 8: PERFORMANCE MATRIX */}
+            </div>            {/* SECTION 8: PERFORMANCE MATRIX */}
             <div id="sec-matrix" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Performance Matrix</h4>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+              <div className="grid grid-cols-2 md:grid-cols-6 gap-3 text-center">
                 <div className="p-3 bg-violet-50 rounded-xl border border-violet-200">
                   <span className="text-[10px] font-bold text-violet-700 block">HiDevs AI</span>
                   <span className="text-lg font-extrabold text-violet-900">{candidate.hiDevsAiScore}/100</span>
@@ -367,6 +461,18 @@ export const CandidateModal = ({
                   <span className="text-[10px] font-bold text-amber-700 block">Execution</span>
                   <span className="text-lg font-extrabold text-amber-900">{candidate.executionQuality}%</span>
                 </div>
+                {candidate.leadershipScore !== undefined && (
+                  <div className="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                    <span className="text-[10px] font-bold text-rose-700 block">Leadership</span>
+                    <span className="text-lg font-extrabold text-rose-900">{candidate.leadershipScore}%</span>
+                  </div>
+                )}
+                {candidate.challengeConsistency !== undefined && (
+                  <div className="p-3 bg-indigo-50 rounded-xl border border-indigo-200">
+                    <span className="text-[10px] font-bold text-indigo-700 block">Consistency</span>
+                    <span className="text-lg font-extrabold text-indigo-900">{candidate.challengeConsistency}%</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -415,6 +521,29 @@ export const CandidateModal = ({
                   </ul>
                 </div>
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                {candidate.bestSuitedRoles && (
+                  <div className="p-3.5 rounded-xl bg-violet-50/50 border border-violet-200 space-y-1">
+                    <span className="font-bold uppercase text-[10px] text-violet-850 block">AI Recommended Best Suited Roles</span>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {candidate.bestSuitedRoles.map((role, idx) => (
+                        <span key={idx} className="px-2 py-0.5 bg-white text-violet-905 rounded border border-violet-200 font-semibold">{role}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {candidate.potentialRisksToVerify && (
+                  <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 space-y-1">
+                    <span className="font-bold uppercase text-[10px] text-rose-800 block">Potential Risks to Verify</span>
+                    <ul className="list-disc pl-4 text-rose-900 space-y-0.5 text-[11px]">
+                      {candidate.potentialRisksToVerify.map((risk, idx) => (
+                        <li key={idx}>{risk}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* SECTION 10: CODING ACTIVITY */}
@@ -440,6 +569,17 @@ export const CandidateModal = ({
                   <span className="font-extrabold text-sm text-emerald-600">42 Days Streak</span>
                 </div>
               </div>
+
+              {candidate.verifiedSkillsEvidence && candidate.verifiedSkillsEvidence.length > 0 && (
+                <div className="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-2 text-xs">
+                  <span className="font-bold uppercase text-[10px] text-emerald-800 block">AI Verified Skills & Evidence</span>
+                  <ul className="list-disc pl-4 text-emerald-900 space-y-1">
+                    {candidate.verifiedSkillsEvidence.map((ev, idx) => (
+                      <li key={idx} className="font-medium">{ev}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* GitHub Contribution Heatmap Grid */}
               <div className="p-4 rounded-xl bg-slate-900 text-white space-y-3 shadow-sm">
@@ -597,18 +737,70 @@ export const CandidateModal = ({
             </div>
 
             {/* SECTION 11: RECRUITER INSIGHTS */}
-            <div id="sec-insights" className="space-y-4 pt-2 pb-6">
+            <div id="sec-insights" className="space-y-4 pt-2">
               <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">Recruiter Insights</h4>
-              <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 space-y-2 text-xs">
-                <h5 className="font-bold text-emerald-900">Evidence-Based Reasons to Hire</h5>
-                <ul className="list-disc pl-4 text-emerald-800 space-y-1">
-                  {candidate.recruiterHiringBrief.topEvidenceBasedReasons.map((r, idx) => (
-                    <li key={idx}>{r}</li>
-                  ))}
-                </ul>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-4 bg-emerald-50 rounded-xl border border-emerald-200 space-y-2 text-xs">
+                  <h5 className="font-bold text-emerald-900">Evidence-Based Reasons to Hire</h5>
+                  <ul className="list-disc pl-4 text-emerald-800 space-y-1">
+                    {candidate.recruiterHiringBrief.topEvidenceBasedReasons.map((r, idx) => (
+                      <li key={idx}>{r}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                {candidate.recruiterHiringBrief && (
+                  <>
+                    {candidate.recruiterHiringBrief.interviewAreasToVerify && (
+                      <div className="p-4 bg-amber-50 rounded-xl border border-amber-200 space-y-2 text-xs">
+                        <h5 className="font-bold text-amber-900">Recommended Interview Verification Areas</h5>
+                        <ul className="list-disc pl-4 text-amber-800 space-y-1">
+                          {candidate.recruiterHiringBrief.interviewAreasToVerify.map((area, idx) => (
+                            <li key={idx}>{area}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
+
+              {candidate.recruiterHiringBrief?.interviewReadiness && (
+                <div className="p-4 bg-violet-50 rounded-xl border border-violet-200 space-y-2 text-xs mt-3">
+                  <h5 className="font-bold text-violet-900">Interview Readiness Status</h5>
+                  <span className="inline-block px-3 py-1 bg-white text-violet-800 rounded-lg border border-violet-200 font-extrabold">
+                    {candidate.recruiterHiringBrief.interviewReadiness}
+                  </span>
+                </div>
+              )}
             </div>
 
+            {/* SECTION 12: AI INTELLIGENCE CARDS */}
+            <div id="sec-intelligence" className="space-y-4 pt-2 pb-12">
+              <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider border-b pb-1.5">AI Intelligence Cards</h4>
+              <div className="space-y-4">
+                {candidate.intelligenceCards && candidate.intelligenceCards.map((card) => (
+                  <div key={card.id} className="p-5 rounded-2xl bg-gradient-to-br from-violet-50/50 to-indigo-50/50 border border-violet-100 space-y-3">
+                    <div className="flex justify-between items-start gap-2 flex-wrap">
+                      <div>
+                        <span className="px-2.5 py-0.5 bg-violet-100 text-violet-850 rounded-full text-[10px] font-bold uppercase tracking-wider">{card.category}</span>
+                        <h5 className="font-extrabold text-sm text-gray-900 mt-1.5">{card.title}</h5>
+                      </div>
+                      <span className="text-[11px] font-semibold text-violet-700 bg-white px-2 py-1 rounded border border-violet-100 shadow-sm">{card.availabilityNote}</span>
+                    </div>
+                    <p className="text-xs text-gray-700 leading-relaxed">{card.description}</p>
+                    {card.details && (
+                      <ul className="list-disc pl-4 text-xs text-gray-600 space-y-1">
+                        {card.details.map((d, dIdx) => (
+                          <li key={dIdx}>{d}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </main>
       </div>
