@@ -20,14 +20,14 @@ The **HiDevs Hiring Search Engine** is an internal enterprise hiring platform th
 
 | Feature | Description |
 |---|---|
-| 🔍 Natural Language Search | Search candidates by role, skills, stack, or name using free-form queries |
-| 🎯 Domain Search | Filter by exact keyword, tech stack, or username |
-| 📊 AI Match Score | Every candidate has an AI evaluation score (0–100%) |
-| 🏗️ Builder Score | Proprietary performance metric based on projects, challenges, and code output |
-| 🗂️ Pipeline Management | Move candidates through Saved → Shortlisted → Interview Planned stages |
-| 🟢 Open to Work Badge | Live animated badge on candidate profiles; passive candidates show a greyed "Not Open to Work" badge |
-| 🔎 Advanced Filters | Experience range, location, notice period, expected salary (INR LPA), and workspace filters |
-| 👤 Intelligence Profile | Full candidate detail view including work timeline, education, skills distribution, hackathons, personal projects, and recruiter hiring brief |
+|  Natural Language Search | Search candidates by role, skills, stack, or name using free-form queries |
+|  Domain Search | Filter by exact keyword, tech stack, or username |
+|  AI Match Score | Every candidate has an AI evaluation score (0–100%) |
+|  Builder Score | Proprietary performance metric based on projects, challenges, and code output |
+|  Pipeline Management | Move candidates through Saved → Shortlisted → Interview Planned stages |
+|  Open to Work Badge | Live animated badge on candidate profiles; passive candidates show a greyed "Not Open to Work" badge |
+|  Advanced Filters | Experience range, location, notice period, expected salary (INR LPA), and workspace filters |
+|  Intelligence Profile | Full candidate detail view including work timeline, education, skills distribution, hackathons, personal projects, and recruiter hiring brief |
 
 ---
 
