@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { mockCandidates } from '../data/mockCandidates.js';
 import { Header } from '../components/Header.jsx';
 import { CandidateCard } from '../components/CandidateCard.jsx';
-import { CandidateModal } from '../components/CandidateModal.jsx';
+import { CandidateProfilePage } from '../components/CandidateProfilePage.jsx';
 import { SidebarFilters } from '../components/SidebarFilters.jsx';
 
 export default function Home() {
@@ -177,6 +177,32 @@ export default function Home() {
   const shortlistedCount = candidates.filter((c) => c.isShortlisted).length;
   const interviewCount = candidates.filter((c) => c.isInterviewPlanned).length;
 
+  // If a candidate is selected, show the full profile page
+  if (selectedCandidate) {
+    return (
+      <div className="min-h-screen flex flex-col bg-slate-50">
+        <Header
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+          categories={categories}
+          savedCount={savedCount}
+          shortlistedCount={shortlistedCount}
+          interviewCount={interviewCount}
+          activeWorkspaceTab={activeWorkspaceTab}
+          setActiveWorkspaceTab={setActiveWorkspaceTab}
+        />
+        <CandidateProfilePage
+          candidate={selectedCandidate}
+          onBack={() => setSelectedCandidate(null)}
+          onToggleSave={(id) => handleToggleSave(id)}
+          onToggleShortlist={(id) => handleToggleShortlist(id)}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Header
@@ -272,13 +298,6 @@ export default function Home() {
 
         </div>
       </main>
-
-      <CandidateModal
-        candidate={selectedCandidate}
-        onClose={() => setSelectedCandidate(null)}
-        onToggleSave={(id) => handleToggleSave(id)}
-        onToggleShortlist={(id) => handleToggleShortlist(id)}
-      />
 
       <footer className="border-t border-gray-200 bg-white py-6 text-center text-xs text-gray-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">

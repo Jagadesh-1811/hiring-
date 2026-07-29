@@ -8,35 +8,43 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        primary: ["Inter", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-        brandViolet: {
-          50: '#F5F3FF',
-          100: '#EDE9FE',
-          200: '#DDD6FE',
-          600: '#7C3AED',
-          700: '#6D28D9',
-        },
-        brandPurple: {
-          50: '#FAF5FF',
-          mid: '#8A63B7',
-          deep: '#724E99',
-        }
+        // Semantic Text Tokens
+        textPrimary: "#374151",
+        textSecondary: "#7c3aed",
+        textTertiary: "#111827",
+        textInverse: "#ffffff",
+
+        // Semantic Surface Tokens
+        surfaceBase: "#000000",
+        surfaceMuted: "#f8fafc",
+        surfaceRaised: "#059669",
+
+        // Semantic Border Tokens
+        borderDefault: "#e5e7eb",
+        borderMuted: "#f3f4f6",
+        borderStrong: "#ddd6fe",
+      },
+      borderRadius: {
+        xs: "8px",
+        sm: "12px",
+        md: "16px",
       },
       boxShadow: {
-        'violet-glow': '0 4px 20px -2px rgba(124, 58, 237, 0.18), 0 2px 8px rgba(124, 58, 237, 0.12)',
-        'card-hover': '0 12px 30px -4px rgba(109, 40, 217, 0.22)',
+        token1: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+        token2: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        token3: "0 4px 6px -1px rgba(124, 58, 237, 0.2), 0 2px 4px -2px rgba(124, 58, 237, 0.2)",
       },
-      keyframes: {
-        daveBob: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-3px)' },
-        }
+      transitionDuration: {
+        instant: "150ms",
       },
-      animation: {
-        'dave-bob': 'daveBob 3s ease-in-out infinite',
-      }
+      transitionTimingFunction: {
+        tokenEase: "cubic-bezier(0.4, 0, 0.2, 1)",
+      },
     },
   },
   plugins: [],
