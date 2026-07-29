@@ -7,7 +7,6 @@ import {
   FaEnvelope, FaHeart, FaAward, FaExclamationTriangle, FaUserCheck, FaLightbulb, FaFileAlt, FaCheckCircle,
   FaMapMarkerAlt, FaBuilding, FaClock, FaBookmark, FaRegBookmark, FaStar, FaRegStar, FaTimes
 } from 'react-icons/fa';
-import SpecularButton from './SpecularButton';
 
 /* ─── UI UX Pro Max Enterprise Component System ───────────────────── */
 
@@ -55,29 +54,29 @@ const MetricTile = ({ label, value, subtext, highlight = false, badge }) => (
   </div>
 );
 
-/* ScoreGauge: Circular score visualization gauge */
-const ScoreGauge = ({ value, max = 100, label }) => {
-  const radius = 22;
+/* ScoreGauge: Compact circular score visualization gauge */
+const ScoreGauge = ({ value, max = 100, label, color = '#7c3aed' }) => {
+  const radius = 18;
   const circumference = 2 * Math.PI * radius;
   const pct = Math.min(100, Math.max(0, (value / max) * 100));
   const strokeDashoffset = circumference - (pct / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center p-3 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] hover:border-[#ddd6fe] transition-all">
-      <div className="relative w-14 h-14">
-        <svg className="w-full h-full -rotate-90" viewBox="0 0 56 56" aria-hidden="true">
-          <circle cx="28" cy="28" r={radius} fill="none" stroke="#e5e7eb" strokeWidth="4" />
+    <div className="flex flex-col items-center justify-center p-2 rounded-xl border border-[#e5e7eb] bg-[#f8fafc] hover:border-[#ddd6fe] hover:shadow-2xs transition-all duration-150">
+      <div className="relative w-11 h-11">
+        <svg className="w-full h-full -rotate-90" viewBox="0 0 44 44" aria-hidden="true">
+          <circle cx="22" cy="22" r={radius} fill="none" stroke="#f1f5f9" strokeWidth="3" />
           <circle
-            cx="28" cy="28" r={radius} fill="none" stroke="#7c3aed" strokeWidth="4"
+            cx="22" cy="22" r={radius} fill="none" stroke={color} strokeWidth="3"
             strokeDasharray={circumference} strokeDashoffset={strokeDashoffset}
             strokeLinecap="round" className="transition-all duration-300"
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-[12px] font-bold text-[#111827]">{value}</span>
+          <span className="text-[11px] font-black text-[#111827] tracking-tight">{value}</span>
         </div>
       </div>
-      <span className="text-[10px] font-bold uppercase tracking-wider mt-2 text-center text-[#374151]">{label}</span>
+      <span className="text-[8px] font-extrabold uppercase tracking-wider mt-1.5 text-center text-[#374151] line-clamp-1">{label}</span>
     </div>
   );
 };
@@ -117,20 +116,12 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
 
         {/* ── 1. TOP CONTROL & ACTION BAR ───────────────────────────── */}
         <div className="bg-white rounded-2xl border border-[#e5e7eb] p-4 md:p-5 shadow-xs flex items-center justify-between gap-4 flex-wrap">
-          <SpecularButton
-            size="sm"
-            radius={12}
-            tint="#ffffff"
-            tintOpacity={1}
-            textColor="#374151"
-            lineColor="#7c3aed"
-            baseColor="#e5e7eb"
-            intensity={0.8}
-            className="border border-[#e5e7eb]"
+          <button
             onClick={onBack}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-[12px] font-bold transition-all border border-[#e5e7eb] bg-white text-[#374151] hover:bg-[#f8fafc] hover:text-[#7c3aed] hover:border-[#ddd6fe] cursor-pointer"
           >
             <FaArrowLeft className="w-3.5 h-3.5" aria-hidden="true" /> Back to Directory
-          </SpecularButton>
+          </button>
 
           <div className="flex items-center gap-2.5">
             {/* Save Toggle Button */}
@@ -229,49 +220,28 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
               </div>
             </div>
 
-            {/* SpecularButton Links & Resume */}
+            {/* Action Links & Resume */}
             <div className="flex items-center gap-2">
-              <SpecularButton
-                size="sm"
-                radius={12}
-                tint="#ffffff"
-                tintOpacity={1}
-                textColor="#111827"
-                lineColor="#7c3aed"
-                baseColor="#e5e7eb"
-                className="border border-[#e5e7eb]"
+              <button
                 onClick={() => window.open(candidate.github, '_blank')}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-bold transition-all border border-[#e5e7eb] bg-white text-[#374151] hover:bg-[#f8fafc] hover:text-[#7c3aed] hover:border-[#ddd6fe] cursor-pointer"
               >
                 <FaGithub className="w-4 h-4 text-[#111827]" aria-hidden="true" /> GitHub <FaExternalLinkAlt className="w-2.5 h-2.5 text-slate-400" aria-hidden="true" />
-              </SpecularButton>
+              </button>
 
-              <SpecularButton
-                size="sm"
-                radius={12}
-                tint="#ddd6fe"
-                tintOpacity={0.2}
-                textColor="#7c3aed"
-                lineColor="#7c3aed"
-                baseColor="#ddd6fe"
-                className="border border-[#ddd6fe]"
+              <button
                 onClick={() => window.open(candidate.linkedin, '_blank')}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-bold transition-all border border-[#ddd6fe] bg-[#ddd6fe]/15 text-[#7c3aed] hover:bg-[#ddd6fe]/30 cursor-pointer"
               >
-                <FaLinkedin className="w-4 h-4 text-[#7c3aed]" aria-hidden="true" /> LinkedIn <FaExternalLinkAlt className="w-2.5 h-2.5 text-[#ddd6fe]" aria-hidden="true" />
-              </SpecularButton>
+                <FaLinkedin className="w-4 h-4 text-[#7c3aed]" aria-hidden="true" /> LinkedIn <FaExternalLinkAlt className="w-2.5 h-2.5 text-[#7c3aed]/70" aria-hidden="true" />
+              </button>
 
-              <SpecularButton
-                size="sm"
-                radius={12}
-                tint="#059669"
-                tintOpacity={1}
-                textColor="#ffffff"
-                lineColor="#059669"
-                baseColor="#059669"
-                className="border border-[#059669]"
+              <button
                 onClick={() => window.open(candidate.resumeUrl, '_blank')}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[12px] font-bold transition-all border border-[#059669] bg-[#059669] text-white hover:bg-[#047857] cursor-pointer"
               >
                 <FaFileDownload className="w-4 h-4 text-white" aria-hidden="true" /> Download Resume
-              </SpecularButton>
+              </button>
             </div>
           </div>
 
@@ -353,101 +323,190 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
 
           {/* TAB 1: EXECUTIVE AI BRIEF & OVERVIEW */}
           {activeTab === 'overview' && (
-            <>
-              <div className="col-span-12 lg:col-span-8 space-y-4">
-                <TokenCard title="Executive Summary & Detailed AI Evaluation" icon={FaFileAlt}>
-                  <p className="text-[13px] leading-[20px] font-bold text-[#111827] bg-[#f8fafc] border border-[#ddd6fe] p-4 rounded-xl mb-4">
-                    {candidate.executiveSummary}
-                  </p>
-                  <h3 className="text-[10px] font-extrabold uppercase tracking-widest text-[#374151] mb-2">Candidate Overview</h3>
-                  <p className="text-[12px] leading-[18px] text-[#374151] mb-4">
-                    {candidate.candidateBio}
-                  </p>
-
-                  {candidate.detailedEvaluation && (
-                    <div className="mb-4 bg-[#f8fafc] p-4 rounded-xl border border-[#e5e7eb]">
-                      <h3 className="text-[10px] font-extrabold uppercase tracking-widest text-[#7c3aed] mb-1.5">Detailed AI Evaluation</h3>
-                      <p className="text-[11px] leading-[16px] text-[#374151]">{candidate.detailedEvaluation}</p>
-                    </div>
-                  )}
-
-                  {candidate.userSummary && (
-                    <div className="pt-3 border-t border-[#e5e7eb]">
-                      <div className="flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wider text-[#7c3aed]">
-                        <FaUserCheck className="w-3 h-3" /> Recruiter Briefing
-                      </div>
-                      <p className="text-[11px] text-[#374151] italic mt-1 bg-[#f8fafc] p-3 rounded-lg border border-[#e5e7eb]">
-                        "{candidate.userSummary}"
-                      </p>
-                    </div>
-                  )}
-                </TokenCard>
-
-                {/* Core Evidence-Based Strengths */}
-                <TokenCard title="Top Evidence-Based Strengths" icon={FaAward}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {candidate.topStrengths?.map((strength, i) => (
-                      <div key={i} className="flex items-start gap-2.5 text-[12px] font-bold text-[#059669] bg-[#059669]/10 border border-[#059669]/20 p-3 rounded-xl">
-                        <FaCheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#059669]" />
-                        <span>{strength}</span>
-                      </div>
-                    ))}
+            <div className="col-span-12 space-y-6">
+              {/* Quick AI Assessment Badges & Ranks */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-white border border-[#e5e7eb] rounded-2xl p-5 shadow-xs flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#ddd6fe]/30 flex items-center justify-center shrink-0">
+                    <FaAward className="w-6 h-6 text-[#7c3aed]" />
                   </div>
-                </TokenCard>
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#374151] block mb-0.5">Challenge Rank</span>
+                    <span className="text-[16px] font-black text-[#111827]">{candidate.challengeRank || 'N/A'}</span>
+                  </div>
+                </div>
+                <div className="bg-white border border-[#e5e7eb] rounded-2xl p-5 shadow-xs flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#059669]/10 flex items-center justify-center shrink-0">
+                    <FaChartBar className="w-6 h-6 text-[#059669]" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#374151] block mb-0.5">Project Rank</span>
+                    <span className="text-[16px] font-black text-[#059669]">{candidate.projectRank || 'N/A'}</span>
+                  </div>
+                </div>
+                <div className="bg-white border border-[#e5e7eb] rounded-2xl p-5 shadow-xs flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#7c3aed]/10 flex items-center justify-center shrink-0">
+                    <FaUserCheck className="w-6 h-6 text-[#7c3aed]" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#374151] block mb-0.5">Experience Banding</span>
+                    <span className="text-[16px] font-black text-[#111827]">{candidate.experienceBanding || 'N/A'}</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Sidebar Matrix */}
-              <div className="col-span-12 lg:col-span-4 space-y-4">
-                <TokenCard title="AI Performance & Competency Matrix" icon={FaChartBar}>
-                  <div className="grid grid-cols-2 gap-3 mb-4">
-                    <ScoreGauge value={candidate.hiDevsAiScore} label="HiDevs AI" />
-                    <ScoreGauge value={candidate.builderScore} label="Builder Score" />
-                    <ScoreGauge value={candidate.aiEvaluationScore} label="AI Evaluation" />
-                    <ScoreGauge value={candidate.problemSolvingScore} label="Problem Solving" />
-                  </div>
+              <div className="grid grid-cols-12 gap-4">
+                {/* Left Column: AI Detailed Assessment Report */}
+                <div className="col-span-12 lg:col-span-8 space-y-4">
+                  <TokenCard title="HiDevs AI Evaluation Report" icon={FaFileAlt}>
+                    <div className="space-y-3.5">
+                      {/* Executive Summary Callout */}
+                      <div className="relative overflow-hidden rounded-2xl border border-[#ddd6fe] bg-[#f8fafc] p-4 shadow-2xs">
+                        <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7c3aed] block mb-2.5">Executive Summary</span>
+                        <p className="text-[13px] leading-[20px] font-bold text-[#111827] italic">
+                          "{candidate.executiveSummary}"
+                        </p>
+                      </div>
 
-                  <div className="space-y-2 pt-3 border-t border-[#e5e7eb]">
-                    <div className="flex justify-between text-[11px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151]">Leadership Score</span>
-                      <span className="font-bold text-[#111827]">{candidate.leadershipScore || 85}%</span>
-                    </div>
-                    <div className="flex justify-between text-[11px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151]">Learning Velocity</span>
-                      <span className="font-bold text-[#059669]">{candidate.learningVelocity || 92}%</span>
-                    </div>
-                    <div className="flex justify-between text-[11px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151]">Execution Quality</span>
-                      <span className="font-bold text-[#7c3aed]">{candidate.executionQuality || 90}%</span>
-                    </div>
-                    <div className="flex justify-between text-[11px] py-1">
-                      <span className="text-[#374151]">Challenge Consistency</span>
-                      <span className="font-bold text-[#111827]">{candidate.challengeConsistency || 94}%</span>
-                    </div>
-                  </div>
-                </TokenCard>
+                      {/* Candidate Bio */}
+                      <div>
+                        <h3 className="text-[11px] font-extrabold uppercase tracking-widest text-[#374151] mb-2">About the Candidate</h3>
+                        <p className="text-[13px] leading-[20px] text-[#374151]">{candidate.candidateBio}</p>
+                      </div>
 
-                <TokenCard title="Contact Information" icon={FaEnvelope}>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-[12px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151] font-medium">Email</span>
-                      <span className="font-bold text-[#111827]">{candidate.email}</span>
+                      {/* Detailed Evaluation */}
+                      {candidate.detailedEvaluation && (
+                        <div className="rounded-2xl border border-[#e5e7eb] p-4 bg-[#f8fafc]">
+                          <h3 className="text-[11px] font-extrabold uppercase tracking-widest text-[#7c3aed] mb-2">In-Depth Technical Evaluation</h3>
+                          <p className="text-[12px] leading-[18px] text-[#374151]">{candidate.detailedEvaluation}</p>
+                        </div>
+                      )}
+
+                      {/* Recruiter Summary Note */}
+                      {candidate.userSummary && (
+                        <div className="pt-3 border-t border-[#e5e7eb]">
+                          <div className="flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-widest text-[#7c3aed] mb-1.5">
+                            <FaUserCheck className="w-3.5 h-3.5" /> Recruiter Verdict
+                          </div>
+                          <p className="text-[12px] leading-[18px] text-[#374151] italic bg-[#ddd6fe]/10 border border-[#ddd6fe] p-3 rounded-xl">
+                            "{candidate.userSummary}"
+                          </p>
+                        </div>
+                      )}
                     </div>
-                    <div className="flex items-center justify-between text-[12px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151] font-medium">Phone</span>
-                      <span className="font-bold text-[#111827]">{candidate.contact}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[12px] py-1 border-b border-[#e5e7eb]">
-                      <span className="text-[#374151] font-medium">Location</span>
-                      <span className="font-bold text-[#111827]">{candidate.currentLocation}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-[12px] py-1">
-                      <span className="text-[#374151] font-medium">Relocation</span>
-                      <span className="font-bold text-[#111827]">{candidate.preferredLocation || 'Open'}</span>
-                    </div>
+                  </TokenCard>
+
+                  {/* Hiring Signals: Strengths & Risks */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Strengths / Key Hiring Reasons */}
+                    <TokenCard title="Key Hiring Reasons & Strengths" icon={FaAward}>
+                      <ul className="space-y-2.5">
+                        {(candidate.keyHiringReasons || candidate.topStrengths || []).map((reason, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-[12px] font-bold text-[#059669] bg-[#059669]/10 border border-[#059669]/20 p-3 rounded-xl">
+                            <FaCheckCircle className="w-4 h-4 shrink-0 mt-0.5 text-[#059669]" />
+                            <span>{reason}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </TokenCard>
+
+                    {/* Risks / Areas for Improvement */}
+                    <TokenCard title="Areas for Verification & Improvement" icon={FaExclamationTriangle}>
+                      <ul className="space-y-2.5">
+                        {((candidate.areasForImprovement || []).concat(candidate.potentialRisksToVerify || [])).map((item, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-[12px] font-bold text-amber-900 bg-amber-50 border border-amber-200 p-3 rounded-xl">
+                            <FaExclamationTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-500" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                        {(!candidate.areasForImprovement?.length && !candidate.potentialRisksToVerify?.length) && (
+                          <p className="text-[12px] text-slate-400 italic">No significant risks or area improvements identified by AI evaluation.</p>
+                        )}
+                      </ul>
+                    </TokenCard>
                   </div>
-                </TokenCard>
+                </div>
+
+                {/* Right Column: AI Competency Radar & Contact Info */}
+                <div className="col-span-12 lg:col-span-4 space-y-4">
+                  <TokenCard title="AI Competency & Performance Matrix" icon={FaChartBar}>
+                    <div className="grid grid-cols-2 gap-2.5 mb-4">
+                      <ScoreGauge value={candidate.hiDevsAiScore} label="HiDevs AI Score" color="#7c3aed" />
+                      <ScoreGauge value={candidate.builderScore} label="Builder Score" color="#7c3aed" />
+                      <ScoreGauge value={candidate.aiEvaluationScore} label="AI Eval Score" color="#059669" />
+                      <ScoreGauge value={candidate.problemSolvingScore} label="Problem Solving" color="#059669" />
+                    </div>
+
+                    {/* Dynamic Metric Progress Bars */}
+                    <div className="space-y-2 pt-3.5 border-t border-[#e5e7eb]">
+                      <div className="px-2 py-1.5 rounded-xl hover:bg-[#f8fafc] border border-transparent hover:border-[#e5e7eb] transition duration-150">
+                        <div className="flex justify-between text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                          <span className="text-[#374151]">Leadership & Ownership</span>
+                          <span className="font-bold text-[#7c3aed]">{candidate.leadershipScore || 85}%</span>
+                        </div>
+                        <div className="w-full bg-[#f1f5f9] h-1.5 rounded-full overflow-hidden">
+                          <div className="bg-[#7c3aed] h-full rounded-full" style={{ width: `${candidate.leadershipScore || 85}%` }} />
+                        </div>
+                      </div>
+
+                      <div className="px-2 py-1.5 rounded-xl hover:bg-[#f8fafc] border border-transparent hover:border-[#e5e7eb] transition duration-150">
+                        <div className="flex justify-between text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                          <span className="text-[#374151]">Learning Velocity</span>
+                          <span className="font-bold text-[#059669]">{candidate.learningVelocity || 92}%</span>
+                        </div>
+                        <div className="w-full bg-[#f1f5f9] h-1.5 rounded-full overflow-hidden">
+                          <div className="bg-[#059669] h-full rounded-full" style={{ width: `${candidate.learningVelocity || 92}%` }} />
+                        </div>
+                      </div>
+
+                      <div className="px-2 py-1.5 rounded-xl hover:bg-[#f8fafc] border border-transparent hover:border-[#e5e7eb] transition duration-150">
+                        <div className="flex justify-between text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                          <span className="text-[#374151]">Execution & Quality</span>
+                          <span className="font-bold text-[#7c3aed]">{candidate.executionQuality || 90}%</span>
+                        </div>
+                        <div className="w-full bg-[#f1f5f9] h-1.5 rounded-full overflow-hidden">
+                          <div className="bg-[#7c3aed] h-full rounded-full" style={{ width: `${candidate.executionQuality || 90}%` }} />
+                        </div>
+                      </div>
+
+                      <div className="px-2 py-1.5 rounded-xl hover:bg-[#f8fafc] border border-transparent hover:border-[#e5e7eb] transition duration-150">
+                        <div className="flex justify-between text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                          <span className="text-[#374151]">Challenge Consistency</span>
+                          <span className="font-bold text-[#111827]">{candidate.challengeConsistency || 94}%</span>
+                        </div>
+                        <div className="w-full bg-[#f1f5f9] h-1.5 rounded-full overflow-hidden">
+                          <div className="bg-[#111827] h-full rounded-full" style={{ width: `${candidate.challengeConsistency || 94}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  </TokenCard>
+
+                  {/* Quick Contact & Location Card */}
+                  <TokenCard title="Contact & Location Profile" icon={FaEnvelope}>
+                    <div className="space-y-3.5">
+                      <div className="flex items-center justify-between text-[12px] pb-2 border-b border-[#e5e7eb]">
+                        <span className="text-[#374151] font-medium">Email Address</span>
+                        <a href={`mailto:${candidate.email}`} className="font-extrabold text-[#7c3aed] hover:underline truncate max-w-[180px]">
+                          {candidate.email}
+                        </a>
+                      </div>
+                      <div className="flex items-center justify-between text-[12px] pb-2 border-b border-[#e5e7eb]">
+                        <span className="text-[#374151] font-medium">Contact Number</span>
+                        <span className="font-extrabold text-[#111827]">{candidate.contact}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-[12px] pb-2 border-b border-[#e5e7eb]">
+                        <span className="text-[#374151] font-medium">Location</span>
+                        <span className="font-extrabold text-[#111827]">{candidate.currentLocation}</span>
+                      </div>
+                      <div className="flex items-center justify-between text-[12px]">
+                        <span className="text-[#374151] font-medium">Relocation Target</span>
+                        <span className="font-extrabold text-[#059669]">{candidate.preferredLocation || 'Open / Remote'}</span>
+                      </div>
+                    </div>
+                  </TokenCard>
+                </div>
               </div>
-            </>
+            </div>
           )}
 
           {/* TAB 2: WORK EXPERIENCE & PROJECTS */}
@@ -582,7 +641,7 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
           {activeTab === 'skills' && (
             <div className="col-span-12 space-y-4">
               <TokenCard title="Developer Activity & GitHub Commits" icon={FaCodeBranch}>
-                <div className="bg-[#111827] text-white p-4 rounded-xl space-y-3 mb-4">
+                <div className="bg-[#111827] text-white p-4 rounded-xl space-y-3">
                   <div className="flex items-center justify-between text-[11px]">
                     <span className="font-bold text-[#ddd6fe]">2026 Commit Activity (1,420 Commits)</span>
                     <div className="flex items-center gap-1.5 text-[10px] text-slate-400">
@@ -619,23 +678,29 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
                     ))}
                   </div>
                 </div>
+              </TokenCard>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div className="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-center">
-                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block">CodeQuest</span>
-                    <span className="text-[14px] font-bold text-[#111827]">{candidate.codeQuestCompleted || 42} Quests</span>
+              <TokenCard title="Competitive Programming & Challenge Performance" icon={FaLaptopCode}>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div className="p-4 bg-[#f8fafc] border border-[#e5e7eb] rounded-2xl text-center">
+                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block mb-1">CodeQuest</span>
+                    <span className="text-[18px] font-black text-[#111827]">{candidate.codeQuestCompleted || 42}</span>
+                    <span className="text-[9px] text-[#7c3aed] font-extrabold uppercase block mt-0.5">Quests Completed</span>
                   </div>
-                  <div className="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-center">
-                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block">LeetZ Prompts</span>
-                    <span className="text-[14px] font-bold text-[#111827]">{candidate.leetZPromptsCompleted || 128} Prompts</span>
+                  <div className="p-4 bg-[#f8fafc] border border-[#e5e7eb] rounded-2xl text-center">
+                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block mb-1">LeetZ Prompts</span>
+                    <span className="text-[18px] font-black text-[#111827]">{candidate.leetZPromptsCompleted || 128}</span>
+                    <span className="text-[9px] text-[#7c3aed] font-extrabold uppercase block mt-0.5">Prompts Solved</span>
                   </div>
-                  <div className="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-center">
-                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block">LeetCode Solved</span>
-                    <span className="text-[14px] font-bold text-[#111827]">{candidate.leetCodeStats?.totalSolved || '520'} Problems</span>
+                  <div className="p-4 bg-[#f8fafc] border border-[#e5e7eb] rounded-2xl text-center">
+                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block mb-1">LeetCode Solved</span>
+                    <span className="text-[18px] font-black text-[#111827]">{candidate.leetCodeStats?.totalSolved || '520'}</span>
+                    <span className="text-[9px] text-[#7c3aed] font-extrabold uppercase block mt-0.5">Problems Solved</span>
                   </div>
-                  <div className="p-3 bg-[#f8fafc] border border-[#e5e7eb] rounded-xl text-center">
-                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block">Acceptance Rate</span>
-                    <span className="text-[14px] font-bold text-[#059669]">{candidate.leetCodeStats?.acceptanceRate || '78.4'}%</span>
+                  <div className="p-4 bg-[#f8fafc] border border-[#e5e7eb] rounded-2xl text-center">
+                    <span className="text-[10px] font-bold text-[#374151] uppercase tracking-wider block mb-1">Acceptance Rate</span>
+                    <span className="text-[18px] font-black text-[#059669]">{candidate.leetCodeStats?.acceptanceRate || '78.4'}%</span>
+                    <span className="text-[9px] text-[#059669] font-extrabold uppercase block mt-0.5">Average Accuracy</span>
                   </div>
                 </div>
               </TokenCard>
@@ -665,47 +730,165 @@ export const CandidateProfilePage = ({ candidate, onBack, onToggleSave, onToggle
 
           {/* TAB 4: RECRUITER INTELLIGENCE */}
           {activeTab === 'intelligence' && (
-            <div className="col-span-12 space-y-4">
-              <TokenCard title="Recruiter Intelligence Brief" icon={FaUserCheck}>
-                <div className="space-y-3 mb-4">
-                  <h3 className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151]">Interview Verification Areas</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {candidate.recruiterHiringBrief?.interviewAreasToVerify?.map((area, i) => (
-                      <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-amber-50 border border-amber-200">
-                        <span className="w-5 h-5 rounded-md bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
-                          {i + 1}
-                        </span>
-                        <p className="text-[11px] font-bold text-amber-900 leading-snug">{area}</p>
+            <div className="col-span-12 grid grid-cols-12 gap-6">
+              
+              {/* Left Column: Intelligence Summary Brief */}
+              <div className="col-span-12 lg:col-span-4 space-y-6">
+                <TokenCard title="Recruiter Intelligence Brief" icon={FaUserCheck}>
+                  <div className="space-y-5">
+                    {/* Best Suited Roles */}
+                    {candidate.bestSuitedRoles?.length > 0 && (
+                      <div>
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151] block mb-2">Best Suited Roles</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {candidate.bestSuitedRoles.map((role, i) => (
+                            <TokenChip key={i} variant="purple">{role}</TokenChip>
+                          ))}
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                    )}
 
-                {candidate.bestSuitedRoles?.length > 0 && (
-                  <div className="pt-3 border-t border-[#e5e7eb]">
-                    <h3 className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151] mb-2">Best Suited Roles</h3>
-                    <div className="flex flex-wrap gap-1.5">
-                      {candidate.bestSuitedRoles.map((role, i) => (
-                        <TokenChip key={i} variant="purple">{role}</TokenChip>
-                      ))}
+                    {/* Interview Verification Areas */}
+                    {candidate.recruiterHiringBrief?.interviewAreasToVerify?.length > 0 && (
+                      <div className="pt-4 border-t border-[#e5e7eb]">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151] block mb-2">Interview Verification Areas</span>
+                        <div className="space-y-2.5">
+                          {candidate.recruiterHiringBrief.interviewAreasToVerify.map((area, i) => (
+                            <div key={i} className="flex items-start gap-2 p-2.5 rounded-xl bg-amber-50/60 border border-amber-200">
+                              <span className="w-5 h-5 rounded-md bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center shrink-0">
+                                {i + 1}
+                              </span>
+                              <p className="text-[11px] font-bold text-amber-900 leading-snug">{area}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Quick Readiness Insights */}
+                    <div className="pt-4 border-t border-[#e5e7eb] space-y-3">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151] block">Onboarding & Location Specs</span>
+                      <div className="grid grid-cols-2 gap-2 text-[11px] font-bold text-[#374151]">
+                        <div className="p-2.5 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                          <span className="text-[8px] uppercase tracking-wider text-slate-400 block mb-0.5">Readiness</span>
+                          <span className="text-[#059669]">{candidate.recruiterHiringBrief?.interviewReadiness || 'Ready'}</span>
+                        </div>
+                        <div className="p-2.5 rounded-lg bg-[#f8fafc] border border-[#e5e7eb]">
+                          <span className="text-[8px] uppercase tracking-wider text-slate-400 block mb-0.5">Notice Period</span>
+                          <span>{candidate.noticePeriod}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
-              </TokenCard>
-
-              {candidate.intelligenceCards?.length > 0 && (
-                <TokenCard title="Recruiter Intelligence Cards" icon={FaLightbulb}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                    {candidate.intelligenceCards.map((card, idx) => (
-                      <div key={idx} className="p-4 bg-[#f8fafc] rounded-xl border border-[#e5e7eb] hover:border-[#ddd6fe] transition">
-                        <span className="text-[10px] font-bold text-[#7c3aed] uppercase tracking-wider block mb-1">{card.category || 'Insight'}</span>
-                        <h4 className="text-[13px] font-bold text-[#111827]">{card.title}</h4>
-                        <p className="text-[11px] text-[#374151] mt-1.5 leading-relaxed">{card.insight || card.description}</p>
-                      </div>
-                    ))}
-                  </div>
                 </TokenCard>
-              )}
+              </div>
+
+              {/* Right Column: Detailed Recruiter Intelligence Cards */}
+              <div className="col-span-12 lg:col-span-8 space-y-6">
+                {candidate.intelligenceCards?.length > 0 ? (
+                  candidate.intelligenceCards.map((card, idx) => (
+                    <div key={idx} className="bg-white rounded-2xl border border-[#e5e7eb] p-6 shadow-xs space-y-5">
+                      {/* Card Title & Category */}
+                      <div className="flex items-center justify-between border-b border-[#e5e7eb] pb-3 flex-wrap gap-2">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-[#ddd6fe]/30 flex items-center justify-center">
+                            <FaLightbulb className="w-4 h-4 text-[#7c3aed]" />
+                          </div>
+                          <div>
+                            <span className="text-[9px] font-bold text-[#7c3aed] uppercase tracking-widest block">{card.category || 'Recruiter Insight'}</span>
+                            <h3 className="text-[15px] font-black text-[#111827] mt-0.5">{card.title}</h3>
+                          </div>
+                        </div>
+                        {card.immediateJoiner && (
+                          <span className="text-[9px] font-bold px-2 py-0.5 rounded bg-[#059669] text-white uppercase tracking-wider">Immediate Joiner</span>
+                        )}
+                      </div>
+
+                      {/* Bio / Description */}
+                      <div className="space-y-1.5">
+                        <p className="text-[12px] leading-relaxed text-[#374151]">{card.description}</p>
+                        {card.bio && (
+                          <p className="text-[11px] leading-relaxed text-[#374151] italic bg-[#f8fafc] p-3 rounded-xl border border-[#e5e7eb]">
+                            "{card.bio}"
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Key Assessment Details List */}
+                      {card.details?.length > 0 && (
+                        <div>
+                          <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#374151] block mb-2">Key Technical Details</span>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+                            {card.details.map((detail, di) => (
+                              <div key={di} className="flex items-start gap-2 text-[11px] text-[#374151] bg-[#f8fafc] p-2.5 rounded-lg border border-[#e5e7eb]">
+                                <FaCheckCircle className="w-3.5 h-3.5 text-[#7c3aed] shrink-0 mt-0.5" />
+                                <span>{detail}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Salary & Workplace Specs Grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-[#e5e7eb]">
+                        {/* Salary Details */}
+                        {card.salaryDetails && (
+                          <div className="p-4 rounded-xl bg-[#f8fafc] border border-[#e5e7eb] space-y-2">
+                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#7c3aed] block border-b border-[#e5e7eb] pb-1.5">Compensation Blueprint</span>
+                            <div className="space-y-1.5 text-[11px] text-[#374151]">
+                              <div className="flex justify-between">
+                                <span>Current:</span>
+                                <span className="font-bold text-[#111827]">{card.salaryDetails.current}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Expected:</span>
+                                <span className="font-bold text-[#059669]">{card.salaryDetails.expected}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Bonus:</span>
+                                <span className="font-bold text-[#111827]">{card.salaryDetails.variableBonus}</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Location Specs */}
+                        {card.locationSpecs && (
+                          <div className="p-4 rounded-xl bg-[#f8fafc] border border-[#e5e7eb] space-y-2">
+                            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#7c3aed] block border-b border-[#e5e7eb] pb-1.5">Workspace Preference</span>
+                            <div className="space-y-1.5 text-[11px] text-[#374151]">
+                              <div className="flex justify-between">
+                                <span>Location:</span>
+                                <span className="font-bold text-[#111827]">{card.locationSpecs.currentLocation}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Preferred:</span>
+                                <span className="font-bold text-[#111827]">{card.locationSpecs.preferredLocation}</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Workplace:</span>
+                                <span className="font-bold text-[#7c3aed]">{card.locationSpecs.workplaceType}</span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Availability Note */}
+                      {card.availabilityNote && (
+                        <div className="text-[11px] font-bold text-[#7c3aed] bg-[#ddd6fe]/20 p-3 rounded-xl border border-[#ddd6fe] text-center">
+                          {card.availabilityNote}
+                        </div>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="bg-white rounded-2xl border border-[#e5e7eb] p-6 text-center text-slate-400 italic">
+                    No detailed recruiter intelligence cards available.
+                  </div>
+                )}
+              </div>
+
             </div>
           )}
 
