@@ -12,11 +12,14 @@ export const mockCandidates = [
     roleCategory: 'Full-Stack Engineering & AI Systems',
     currentRole: 'Senior Full Stack Engineer',
     preferredRoles: ['Lead Full Stack Architect', 'Principal Frontend Engineer', 'AI Platform Engineer'],
-    totalExperience: '5.5 Years',
-    companyExperienceYears: '3.5 Years at Tech Corp, 2 Years at CloudScale',
-    openToWork: true,
-    currentStatus: 'Serving Notice Period',
-    employmentType: 'Full-Time (Remote / Hybrid)',
+    
+    experienceDetails: {
+      totalExperience: '5.5 Years',
+      companyExperienceYears: '3.5 Years at Tech Corp, 2 Years at CloudScale',
+      openToWork: true,
+      currentStatus: 'Serving Notice Period',
+      employmentType: 'Full-Time (Remote / Hybrid)'
+    },
 
     primaryTechSkills: ['React', 'Next.js', 'Node.js', 'TypeScript', 'TailwindCSS'],
     additionalTechSkills: ['GraphQL', 'Docker', 'Redis', 'PostgreSQL', 'Python (FastAPI)'],

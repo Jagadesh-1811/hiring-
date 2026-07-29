@@ -236,13 +236,13 @@ export default function Home() {
             {/* Banner */}
             <div className="bg-gradient-to-r from-violet-900 via-indigo-900 to-purple-950 text-white rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden">
               <div className="max-w-2xl space-y-3 relative z-10">
-                <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-violet-300 bg-white/10 px-3 py-1 rounded-full border border-white/20">
+                <span className="inline-block text-[11px] font-extrabold uppercase tracking-widest text-violet-200 bg-white/10 px-3 py-1 rounded-full border border-white/20">
                   Talent Search Engine
                 </span>
-                <h2 className="text-2xl md:text-3xl font-extrabold font-heading tracking-tight">
+                <h2 className="text-2xl md:text-3xl font-black font-heading tracking-tight text-white drop-shadow-sm">
                   Discover Top 1% Verified Developer Profiles
                 </h2>
-                <p className="text-violet-200 text-xs md:text-sm font-medium leading-relaxed">
+                <p className="text-slate-100 text-xs md:text-sm font-semibold leading-relaxed">
                   Explore candidate portfolios with builder scores, intelligence cards, location specs, and recruiter briefs. Click any card to inspect category specifications.
                 </p>
               </div>
